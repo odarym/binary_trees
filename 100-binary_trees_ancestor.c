@@ -1,23 +1,5 @@
 #include "binary_trees.h"
 
-
-int depth(const binary_tree_t *tree)
-{
-	int depth = 0;
-
-	if (!tree)
-		return (0);
-
-	while (tree->parent)
-	{
-		depth++;
-		tree = tree->parent;
-	}
-
-	return (depth);
-}
-
-
 /**
  * binary_trees_ancestor - func finds the lowest common ancestor of two nodes
  *
@@ -30,41 +12,18 @@ int depth(const binary_tree_t *tree)
 binary_tree_t *binary_trees_ancestor(const binary_tree_t *first,
 										const binary_tree_t *second)
 {
-	int first_depth, second_depth;
+	const binary_tree_t *firstAncestor = first;
+	const binary_tree_t *secondAncestor = second;
 
-	if (!first || !second)
-		return (NULL);
-
-	first_depth = depth(first);
-	second_depth = depth(second);
-
-	if (first_depth > second_depth)
+	while (firstAncestor)
 	{
-		while (first_depth != second_depth)
+		firstAncestor = firstAncestor->parent;
+		while (secondAncestor)
 		{
-			if (first->parent == second)
-				return (first->parent);
-			first = first->parent;
-			first_depth--;
+			secondAncestor = secondAncestor->parent;
+			if (firstAncestor == secondAncestor)
+				return ((binary_tree_t *)firstAncestor);
 		}
-	}
-	else if (second_depth > first_depth)
-	{
-		while (second_depth != first_depth)
-		{
-			if (second->parent == first)
-				return (second->parent);
-			second = second->parent;
-			second_depth--;
-		}
-	}
-	while (second && first)
-	{
-		if (second->parent == first->parent)
-			return (first->parent);
-
-		second = second->parent;
-		first = first->parent;
 	}
 
 	return (NULL);
