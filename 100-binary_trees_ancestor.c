@@ -8,7 +8,16 @@
  * If no common ancestor was found, your function must return NULL
 */
 binary_tree_t *binary_trees_ancestor(const binary_tree_t *first,
-							const binary_tree_t *second)
+										const binary_tree_t *second)
 {
+	while (first)
+	{
+		while (second)
+		{
+			if (first == second)
+				return ((binary_tree_t *)first);
+		}
+	}
 
+	return (NULL);
 }
