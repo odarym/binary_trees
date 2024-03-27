@@ -12,19 +12,26 @@
 binary_tree_t *binary_trees_ancestor(const binary_tree_t *first,
 										const binary_tree_t *second)
 {
-	const binary_tree_t *firstAncestor = first;
-	const binary_tree_t *secondAncestor = second;
+	binary_tree_t *firstAncestor = NULL;
+	binary_tree_t *secondAncestor = NULL;
 
-	while (firstAncestor)
+	if (first == NULL || second == NULL)
 	{
-		firstAncestor = firstAncestor->parent;
-		while (secondAncestor)
-		{
-			secondAncestor = secondAncestor->parent;
-			if (firstAncestor == secondAncestor)
-				return ((binary_tree_t *)firstAncestor);
-		}
+		return (NULL);
+	}
+	if (first == second)
+	{
+		return ((binary_tree_t *)first);
 	}
 
-	return (NULL);
+	firstAncestor = first->parent;
+	secondAncestor = second->parent;
+
+	if (!firstAncestor || (first == secondAncestor) || (!firstAncestor->parent && secondAncestor))
+		return (binary_trees_ancestor(first, secondAncestor));
+
+	else if ((!secondAncestor) || (firstAncestor == second) || (!secondAncestor->parent && firstAncestor))
+		return (binary_trees_ancestor(firstAncestor, second));
+
+	return (binary_trees_ancestor(firstAncestor, secondAncestor));
 }
