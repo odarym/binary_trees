@@ -16,7 +16,11 @@ int binary_tree_balance(const binary_tree_t *tree)
 	return (0);
 }
 
-
+/**
+ * binary_tree_height - function that checks if bnary tree is valid
+ * @tree: pointer to root node of tree to check
+ * Return: d_type of size_t
+*/
 size_t binary_tree_height(const binary_tree_t *tree)
 {
 	uint16_t i = 0;
