@@ -27,9 +27,9 @@ int binary_tree_is_perfect(const binary_tree_t *tree)
 /**
  * PerfectTree - Recursive function to check if a tree is perfect.
  *
- * @tree: 
+ * @tree: pointer to node of root
  *
- * Return:
+ * Return: d_type int
 */
 int PerfectTree(const binary_tree_t *tree)
 {
@@ -41,7 +41,7 @@ int PerfectTree(const binary_tree_t *tree)
 		i = 1 + PerfectTree(tree->left);
 		j = 1 + PerfectTree(tree->right);
 
-		if ( (i != 0) && (j == i))
+		if ((i != 0) && (j == i))
 			return (j);
 
 		return (0);
