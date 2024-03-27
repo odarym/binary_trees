@@ -2,7 +2,12 @@
 
 
 /**
- * 
+ * binary_tree_node - Add a new node to a tree
+ *
+ * @parent: Parent node
+ * @value: value to be placed on the node
+ *
+ * Return: New node
 */
 binary_tree_t *binary_tree_node(binary_tree_t *parent, int value)
 {
