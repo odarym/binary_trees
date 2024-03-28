@@ -2,7 +2,7 @@
 
 /**
  * heap_to_sorted_array - converts Binary Max Heap to sorted array of integers
- * @heap: pointer to root node of heap to convert
+ * @heap: pointer to the root node of heap to convert
  * @size: address to store the; size of the array
  * Return: array returned must be sorted in descending order
 */
