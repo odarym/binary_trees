@@ -83,8 +83,8 @@ int btic_helper(const binary_tree_t *tree, size_t index, size_t size)
  * binary_tree_size - measures size of binary tree
  * @tree: tree to measure size of
  *
- * Return: size of tree
- *         0 if tree is NULL
+ * Return: size of the tree
+ * 0 if tree is NULL
  */
 size_t binary_tree_size(const binary_tree_t *tree)
 {
