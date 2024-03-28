@@ -39,7 +39,6 @@ int btia_helper(const binary_tree_t *tree, int min, int max)
 
 	return (btia_helper(tree->left, min, tree->n - 1) &&
 		btia_helper(tree->right, tree->n + 1, max));
-	/* This is part of the BST check logic */
 }
 
 /**
