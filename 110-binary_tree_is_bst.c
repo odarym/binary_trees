@@ -5,7 +5,7 @@
 
 int isBST(const binary_tree_t *tree, int min, int max)
 {
-	if (tree == NULL)
+	if (!tree)
 		return (1);
 
 	if (tree->n < min || tree->n > max)
@@ -24,7 +24,7 @@ int isBST(const binary_tree_t *tree, int min, int max)
 */
 int binary_tree_is_bst(const binary_tree_t *tree)
 {
-	if (tree == NULL)
+	if (!tree)
 		return (0);
 
 	return (isBST(tree, INT_MIN, INT_MAX));
