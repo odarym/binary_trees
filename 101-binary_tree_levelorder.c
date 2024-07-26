@@ -1,57 +1,114 @@
 #include "binary_trees.h"
 
 /**
- * binary_tree_levelorder -goes through binary tree uses;level-order traversal
- * @tree: pointer to the root node of the tree to traverse
- * @func: pointer to a function to call for each node
- * Return: if tree or func is NULL, do nothing
-*/
-void binary_tree_levelorder(const binary_tree_t *tree, void (*func)(int))
+ * binary_tree_height_aux -  a tree
+ * @tree: Pointer to
+ * Return: Trees
+ *
+ * FUNCTIONALITY *
+ *
+ * 1. If the tree is empty, return 0.
+ * 2. If the tree is not empty,
+ * then height = 1 + max of left height and right heights.
+ *
+ * 3. Use the recursive helper function to get the
+ * height of left and right subtrees of the current node recursively.
+ *
+ * 4. Get the max of left height and right height and
+ * add 1 to it for the current node.
+ *
+ * 5. Return the height.
+ *
+ * Time Complexity: O(n)
+ */
+size_t binary_tree_height_aux(const binary_tree_t *tree)
 {
-	size_t level, maxlevel;
+	size_t hleft = 0, hright = 0;
 
-	if (!tree || !func)
-		return;
+	if (!tree)
+		return (0);
+	if (tree->left)
+		hleft = 1 + binary_tree_height_aux(tree->left);
+	if (tree->right)
+		hright = 1 + binary_tree_height_aux(tree->right);
 
-	maxlevel = binary_tree_height(tree) + 1;
-
-	for (level = 1; level <= maxlevel; level++)
-		btlo_helper(tree, func, level);
+	if (hleft > hright)
+		return (hleft);
+	return (hright);
 }
 
 /**
- * btlo_helper - goes through binary tree using post-order traverse
- * @tree: tree that traverse
- * @func: a pointer to function to call for each node
- * @level: the level of tree to call func upon
+ * print_level_order - print each
+ * @tree: pointer to thse
+ * @level: level of the tree
+ * @func: pointer to a  node
+ * Return: void
+ *
+ * FUNCTIONALITY *
+ *
+ * 1. If the tree is empty, return.
+ * 2. If the level is 1, print the node.
+ * 3. If the level is greater than 1, recursively
+ * call the function for the left and right subtrees.
+ *
+ * Time Complexity: O(n)
  */
-void btlo_helper(const binary_tree_t *tree, void (*func)(int), size_t level)
+
+void print_level_order(const binary_tree_t *tree, int level, void (*func)(int))
 {
+	if (!tree)
+		return;
+
 	if (level == 1)
 		func(tree->n);
-	else
+	else if (level > 1)
 	{
-		btlo_helper(tree->left, func, level - 1);
-		btlo_helper(tree->right, func, level - 1);
+		print_level_order(tree->left, level - 1, func);
+		print_level_order(tree->right, level - 1, func);
 	}
 }
 
 /**
- * binary_tree_height - measures height of a binary tree
- * @tree: tree to measure height of
+ * binary_tree_levelorder - function that goes through a
+ * binary tree using level-order traversal
+ * @tree: pointer to the root node of the tree to traverse
+ * @func: pointer to a function to call for each node
+ * Return: void
  *
- * Return: height of tree
- * 0 if tree is NULL
+ * FUNCTIONALITY *
+ *
+ * 1. First, we calculate the height of the tree.
+ * 2. Then, we iterate through the tree from level 1 to height.
+ * 3. For each level, we call print_level_order() function.
+ *
+ * 4. In print_level_order() function, we first check if the
+ * current node is NULL. If yes, then we return.
+ *
+ * 5. If the current node is not NULL, then we check if the
+ * current level is 1. If yes, then we print the data of the
+ * current node.
+ *
+ * 6. If the current level is greater than 1,
+ * then we recursively call print_level_order() for left and
+ * right children of the current node.
+ *
+ * 7. The recursion ends when the current level is 1.
+ *
+ * Time Complexity: O(n)
  */
-size_t binary_tree_height(const binary_tree_t *tree)
+void binary_tree_levelorder(const binary_tree_t *tree, void (*func)(int))
 {
-	size_t height_l = 0;
-	size_t height_r = 0;
+	int height = 0;
+	int len = 1;
 
-	if (!tree)
-		return (0);
+	if (!tree || !func)
+		return;
 
-	height_l = tree->left ? 1 + binary_tree_height(tree->left) : 0;
-	height_r = tree->right ? 1 + binary_tree_height(tree->right) : 0;
-	return (height_l > height_r ? height_l : height_r);
+	height = binary_tree_height_aux(tree) + 1;
+
+	while (len <= height)
+	{
+		print_level_order(tree, len, func);
+		len++;
+	}
 }
